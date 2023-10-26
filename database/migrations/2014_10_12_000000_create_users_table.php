@@ -21,6 +21,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->float('Height')->nullable();
+            $table->float('Weight')->nullable();
         });
     }
 

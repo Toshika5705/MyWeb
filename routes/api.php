@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\JwtController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::post('/register', [JwtController::class, 'register']);
+Route::post('/login', [JwtController::class, 'login']);
+Route::post('/me', [JwtController::class, 'me']);
+Route::post('/refresh', [JwtController::class, 'refresh']);
+Route::post('/checkToken', [JwtController::class, 'checkToken']);
