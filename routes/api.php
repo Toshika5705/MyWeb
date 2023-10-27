@@ -19,9 +19,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
-Route::post('/register', [JwtController::class, 'register']);
-Route::post('/login', [JwtController::class, 'login']);
-Route::post('/me', [JwtController::class, 'me']);
-Route::post('/refresh', [JwtController::class, 'refresh']);
-Route::post('/checkToken', [JwtController::class, 'checkToken']);
+//JwtController
+Route::group(['prefix'=> 'auth'], function () {
+    Route::post('/register', [JwtController::class, 'register']);
+    Route::post('/login', [JwtController::class, 'login']);
+    Route::post('/me', [JwtController::class, 'me']);
+    Route::post('/refresh', [JwtController::class, 'refresh']);
+    Route::post('/checkToken', [JwtController::class, 'checkToken']);
+});
