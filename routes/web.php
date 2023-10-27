@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Version\PhpInfoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,3 +37,6 @@ Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => '\App\Http\Controlle
 
 #endregion
 
+// #region PhpInfoController php 資訊
+Route::get('/phpinfo', [PhpInfoController::class, 'info']);
+#endregion
