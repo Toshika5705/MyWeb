@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\JwtTrait;
 use App\Models\User;
+use App\Providers\Interfaces\ISqlProviders;
+use Firebase\JWT\JWT;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -11,21 +14,36 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class JwtController extends Controller
 {
+    use JwtTrait;
+    private $sqlProviders;
+
+    public function __construct(ISqlProviders $sqlProviders) {
+        $this->sqlProviders = $sqlProviders;
+    }
+
+    
     ///註冊
     public function register(Request $request)
     {
         // Validate the request...
+        $id = $this->getId($request);
+        $memberid = $this->sqlProviders->creatmemberid();
 
         $user = User::create([
+            'Id' => $id,
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
+            'MemberId'=>$memberid[0]->memberid,
         ]);
 
         // Generate JWT token
         $token = JWTAuth::fromUser($user);
 
-        return response()->json(['token' => $token]);
+        return response()->json([
+                'token' => $token,
+                'code' => 200,
+            ]);
     }
 
     /// 登入
@@ -38,7 +56,7 @@ class JwtController extends Controller
         if ($token = JWTAuth::attempt($credentials)) {
             return response()->json([
                 'access_token' => $token,
-                'code' => 200
+                'code' => 200,
             ]);
         }
 
