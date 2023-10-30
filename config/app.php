@@ -1,4 +1,5 @@
 <?php
+use App\Providers\SqlServiceProvider;
 
 return [
 
@@ -174,7 +175,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+        App\Providers\SqlServiceProvider::class,
     ],
 
     /*
