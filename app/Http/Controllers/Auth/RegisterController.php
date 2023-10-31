@@ -81,11 +81,12 @@ class RegisterController extends Controller
         $memberid = $this->sqlProviders->creatmemberid();
 
         return User::create([
-            'Id' => $tokenParts[1],
+            'JwtId' => $tokenParts[1],
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'MemberId'=>$memberid[0]->memberid,
+            'LastLoginTime'=> date('Y-m-d H:i:s'),
         ]);
     }
 }

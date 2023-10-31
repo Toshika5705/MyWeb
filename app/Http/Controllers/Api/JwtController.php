@@ -30,11 +30,12 @@ class JwtController extends Controller
         $memberid = $this->sqlProviders->creatmemberid();
 
         $user = User::create([
-            'Id' => $id,
+            'JwtId' => $id,
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'MemberId'=>$memberid[0]->memberid,
+            'LastLoginTime'=> date('Y-m-d H:i:s'),
         ]);
 
         // Generate JWT token
