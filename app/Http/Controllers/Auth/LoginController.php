@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use DateTime;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -22,14 +24,14 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
-     * Where to redirect users after login.
+     * 登入後將用戶重定向到何處。
      *
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
-     * Create a new controller instance.
+     * 建立一個新的控制器實例。
      *
      * @return void
      */
@@ -37,4 +39,21 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    protected function authenticated(Request $request, $user)
+    {
+        // 登入成功後的處理邏輯
+        $clientTime = $request->input('time'); // 從請求中獲取客戶端時間 null
+        
+        // 解析日期時間
+        $dateTime = DateTime::createFromFormat('m-d-Y, h:i:s A T', $clientTime);
+
+        $LastLoginTime = $dateTime->format('Y-m-d H:i:s P');
+
+        // 登入成功後的處理邏輯
+        $user->update([
+            'LastLoginTime' => $LastLoginTime, // 更新最後登入時間
+        ]);
+    }
+
 }
