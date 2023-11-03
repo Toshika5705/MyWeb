@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\JwtController;
+use App\Http\Controllers\AreaTime\TimeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,4 +27,8 @@ Route::group(['prefix'=> 'auth'], function () {
     Route::post('/me', [JwtController::class, 'me']);
     Route::post('/refresh', [JwtController::class, 'refresh']);
     Route::post('/checkToken', [JwtController::class, 'checkToken']);
+});
+
+Route::group(['prefix'=> 'area'], function () {
+    Route::post('/saveTime', [TimeController::class, 'saveTime']);
 });
