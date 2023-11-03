@@ -1,12 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+<script src="{{ asset('js/area.js') }}" defer></script>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('auth.login') }}</div>
-
+                
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
@@ -53,6 +54,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
+                                <input type="hidden" name="time" id="clientTime" value="">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('auth.login') }}
                                 </button>

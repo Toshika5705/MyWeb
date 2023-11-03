@@ -15,6 +15,10 @@
                     @endif
 
                     {{ __('messages.welcome') }}
+                    </br>
+                    </br>
+                    <script src="{{ asset('js/area.js') }}" defer></script>
+                    <div id="clientTime"></div>
                 </div>
             </div>
         </div>
