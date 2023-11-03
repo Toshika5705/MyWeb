@@ -8,7 +8,6 @@ use App\Models\User;
 use App\Providers\Interfaces\ISqlProviders;
 use Firebase\JWT\JWT;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -55,9 +54,19 @@ class JwtController extends Controller
         $credentials = $request->only('email', 'password');
 
         if ($token = JWTAuth::attempt($credentials)) {
+
+            // 登入成功，取得使用者資訊
+            $user = JWTAuth::user();
+
+            // 使用者的 JWTID
+            $updateId = $user->JwtId;
+            //更新JWTID
+            $this->sqlProviders->updateLoginTime($updateId,date('Y-m-d H:i:s'));
+
             return response()->json([
                 'access_token' => $token,
                 'code' => 200,
+                'logTime' => date('Y-m-d H:i:s'),
             ]);
         }
 
