@@ -42,7 +42,13 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
+                        @guest
 
+                        @else
+                            <li class = "nav-dropdown">
+                                <a class="nav-link" href="{{ url('/portfolio') }}">{{ __('auth.portfolios') }}</a>
+                            </li>
+                        @endguest
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -98,6 +104,7 @@
 
         <main class="py-4">
             @yield('content')
+            @yield('protfolio')
         </main>
     </div>
 </body>
