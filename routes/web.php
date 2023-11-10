@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Version\PhpInfoController;
+use App\Http\Controllers\Version\PortfolioController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,4 +40,8 @@ Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => '\App\Http\Controlle
 
 // #region PhpInfoController php 資訊
 Route::get('/phpinfo', [PhpInfoController::class, 'info']);
+#endregion
+
+// #region PortfolioController 作品集 資訊
+Route::get('/portfolio', [PortfolioController::class,'folio']);
 #endregion
