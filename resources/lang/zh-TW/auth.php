@@ -30,5 +30,5 @@ return [
     'Before_proceeding,_please_check_your_email_for_a_verification_link' => '在繼續之前，請檢查您的電子郵件以取得驗證連結。',
     'If_you_did_not_receive_the_email' => '如果您沒有收到電子郵件',
     'click_here_to_request_another' => '點擊此處請求另一個' ,
-
+    'portfolios'=> '作品集',
 ];

@@ -30,5 +30,5 @@ return [
     'Before_proceeding,_please_check_your_email_for_a_verification_link' => 'Before proceeding, please check your email for a verification link.',
     'If_you_did_not_receive_the_email' => 'If you did not receive the email',
     'click_here_to_request_another' => 'click here to request another' ,
-
+    'portfolios'=> 'portfolios',
 ];
