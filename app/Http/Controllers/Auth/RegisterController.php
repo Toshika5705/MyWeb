@@ -26,7 +26,7 @@ class RegisterController extends Controller
     |
     */
     use RegistersUsers;
-
+    use JwtTrait;
     /**
      * Where to redirect users after registration.
      *
@@ -68,25 +68,19 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $email = $data['email'];
+        $logTime = $this->getTime($data['time']);
 
-        $payload = [
-            'email' => $email
-        ];
-        //無需 驗證生成
-        $token = JWT::encode($payload, $email, 'HS256');
-
-        $tokenParts = explode('.', $token);
+        $JwtId = $this->getId($data['email']);
 
         $memberid = $this->sqlProviders->creatmemberid();
 
         return User::create([
-            'JwtId' => $tokenParts[1],
+            'JwtId' => $JwtId,
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'MemberId'=>$memberid[0]->memberid,
-            'LastLoginTime'=> date('Y-m-d H:i:s'),
+            'LastLoginTime'=> $logTime,
         ]);
     }
 }
