@@ -18,4 +18,18 @@ class SqlProviders implements ISqlProviders {
         return DB::table('users')->where('JwtId', $userId)->update(['LastLoginTime' => $loginTime]);
 
     }
+
+    public function InsertPortfolio( $memberid,$createTime, $title, $subtitle, $myurl, $updatetime) {
+
+        $sql = 'INSERT Portfolio VALUES (?,?,?,?,?,?)';
+        return DB::insert($sql,
+            array(
+                $memberid,
+                $createTime,
+                $title,
+                $subtitle,
+                $myurl,
+                $updatetime
+            ));
+    }
 }

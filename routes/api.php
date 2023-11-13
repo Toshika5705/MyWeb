@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Api\JwtController;
 use App\Http\Controllers\AreaTime\TimeController;
+use App\Http\Controllers\Version\PortfolioController;
+use App\Models\Portfolio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,4 +33,8 @@ Route::group(['prefix'=> 'auth'], function () {
 
 Route::group(['prefix'=> 'area'], function () {
     Route::post('/saveTime', [TimeController::class, 'saveTime']);
+});
+
+Route::group(['prefix'=> 'folio'], function () {
+    Route::post('/InsPoerfolio', [PortfolioController::class,'InsPoerfolio']);
 });
