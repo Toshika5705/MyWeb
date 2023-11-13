@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\JwtTrait;
 use App\Models\User;
 use App\Providers\Interfaces\ISqlProviders;
-use Firebase\JWT\JWT;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -25,7 +24,7 @@ class JwtController extends Controller
     public function register(Request $request)
     {
         // Validate the request...
-        $id = $this->getId($request);
+        $id = $this->getId($request->email);
         $memberid = $this->sqlProviders->creatmemberid();
 
         $user = User::create([
@@ -34,7 +33,7 @@ class JwtController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'MemberId'=>$memberid[0]->memberid,
-            'LastLoginTime'=> date('Y-m-d H:i:s'),
+            'LastLoginTime'=> $request->LastLoginTime,
         ]);
 
         // Generate JWT token
@@ -60,13 +59,21 @@ class JwtController extends Controller
 
             // 使用者的 JWTID
             $updateId = $user->JwtId;
+            $lastlogintime = null;
             //更新JWTID
-            $this->sqlProviders->updateLoginTime($updateId,date('Y-m-d H:i:s'));
+            if ($request->logTime == null){
+                $this->sqlProviders->updateLoginTime($updateId,date('Y-m-d H:i:s'));
+                $lastlogintime = date('Y-m-d H:i:s');
+            }
+            else{
+                $this->sqlProviders->updateLoginTime($updateId,$request->logTime);
+                $lastlogintime = $request->logTime;
+            }
 
             return response()->json([
                 'access_token' => $token,
                 'code' => 200,
-                'logTime' => date('Y-m-d H:i:s'),
+                'logTime' => $lastlogintime,
             ]);
         }
 
