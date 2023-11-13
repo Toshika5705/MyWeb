@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers\Traits;
 
+use DateTime;
 use Illuminate\Http\Request;
 
 use Firebase\JWT\JWT;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
 trait JwtTrait {
-    public function getId(Request $request) {
+    public function getId(string $email) {
         
-        $email = $request->input('email');
-
         $payload = [
             'email' => $email
         ];
@@ -28,5 +27,21 @@ trait JwtTrait {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
         
+    }
+    public function getTime(string $logtime) {
+        
+        // 解析日期時間
+        $dateTime = DateTime::createFromFormat('m-d-Y, h:i:s A T', $logtime);
+
+        if ($dateTime instanceof DateTime) {
+            // 轉換為目標格式
+            $formattedDateTimeString = $dateTime->format('Y-m-d H:i:s P');
+
+            // 輸出轉換後的日期時間字串
+            return $formattedDateTimeString;
+        } else {
+            // 解析失敗時的處理邏輯
+            return response()->json(['code' => '404']);
+        }
     }
 }
