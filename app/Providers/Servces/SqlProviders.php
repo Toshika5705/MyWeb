@@ -12,7 +12,10 @@ class SqlProviders implements ISqlProviders {
         return DB::select('SELECT [dbo].[CreateMemberID]() as memberid');
     }
     public function updateLoginTime($userId, $loginTime) {
-        // 如果你想使用 Query Builder 進行更新，可以這樣寫：
-        return DB::table('users')->where('JwtId', $userId)->update(['LastLoginTime' => $loginTime]);
+
+        return DB::async(function (string $userId,string $loginTime) {
+            // 如果你想使用 Query Builder 進行更新，可以這樣寫：
+            return DB::table('users')->where('JwtId', $userId)->update(['LastLoginTime' => $loginTime]);
+        });
     }
 }
