@@ -37,5 +37,5 @@ function sendTimeToBackend() {
 }
 
 // 在這裡執行函數
-sendTimeToBackend();
+//sendTimeToBackend();
 displayTime();
