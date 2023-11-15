@@ -57,4 +57,28 @@ class PortfolioController extends Controller
 
         return response()->json(['success' => '200'], 200);
     }
+
+    public function GetPoerfolio(Request $request){
+        try{
+            if($request->has("MemberId")){
+                $memberid = $request->MemberId;
+            }else{
+                $user = JWTAuth::parseToken()->authenticate();
+                $memberid = $user->MemberId;
+            }
+
+            $List = $this->sqlProviders->ListPortfolio(
+                $memberid,
+                $request->pageSize,
+                $request->pageNumber
+            );
+
+            return response()->json(
+                $List 
+            );
+
+        }catch(\Exception $e){
+            return response()->json(["error" => $e->getMessage()],401);
+        }
+    }
 }

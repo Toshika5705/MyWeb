@@ -32,4 +32,14 @@ class SqlProviders implements ISqlProviders {
                 $updatetime
             ));
     }
+
+    public function ListPortfolio( $memberid, $pageSize, $pageNumber ) {
+        $sql = 'EXEC [dbo].[GetPortfolioList] ?,?,?';
+        return DB::select($sql,
+            array(
+                $memberid, 
+                $pageSize, 
+                $pageNumber
+            ));
+    }
 }

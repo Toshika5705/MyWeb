@@ -37,4 +37,5 @@ Route::group(['prefix'=> 'area'], function () {
 
 Route::group(['prefix'=> 'folio'], function () {
     Route::post('/InsPoerfolio', [PortfolioController::class,'InsPoerfolio']);
+    Route::get('/GetPoerfolio', [PortfolioController::class,'GetPoerfolio']);
 });
