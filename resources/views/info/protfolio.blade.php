@@ -4,12 +4,13 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-20">
             <div class="card">
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-6">
                             <h3>{{ __('messages.cards') }}<h3>
+                            <input type="hidden" id="memberid" value="{{ Auth::user()->MemberId }}">
                         </div>
                         <div class="col-md-6 text-right">
                             <button class="btn btn-primary" onclick="openForm()">新增</button>
@@ -17,6 +18,30 @@
                     </div>
                 </div>
 
+                <!-- 顯示分頁內容 -->
+                <div class="container  mt-4">
+                    <div class="row">
+                        @foreach($data as $item)
+                            <div class="col-md-6">
+                                <div class="card mb-12" style="width: 30rem;">
+                                    <div class="card-header">
+                                        {{$item->Title}}
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        <li>
+                                            <iframe width="480" height="240" src="{{$item->MyUrl}}" frameborder="0" allowfullscreen></iframe>
+                                        </li>
+                                        <li class="list-group-item">{{$item->Subtitle}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="d-flex justify-content-center mt-4">
+                        {{ $data->onEachSide(1)->links() }}
+                    </div>
+                </div>
+                
                  <!-- 彈出表格 -->
                 <div class="modal" id="formModal">
                     <div class="modal-dialog">
@@ -34,17 +59,17 @@
                                     <input type="hidden" id="memberid" value="{{ Auth::user()->MemberId }}">
                                     
                                     <div class="form-group">
-                                        <label for="Title">標題名稱</label>
+                                        <label>標題名稱</label>
                                         <input type="title" class="form-control" id="title" placeholder="標題" required>
                                     </div>
                                     <!-- 更多表格欄位... -->
                                     <div class="form-group">
-                                        <label for="Subtitle">副標題</label>
+                                        <label >副標題</label>
                                         <input type="Subtitle" class="form-control" id="subtitle" placeholder="副標題" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="MyUrl">網址</label>
-                                        <input type="MyUrl" class="form-control" id="myUrl" placeholder="網址" required>
+                                        <label>網址</label>
+                                        <input type="MyUrl" class="form-control" id="myUrl" placeholder="https://www.youtube.com/embed/+ youtube的 v=" required>
                                     </div>
                                         <input type="hidden" name="time" id="clientTime" value="">
                                     <!-- Modal Footer -->
@@ -60,14 +85,14 @@
                     </div>
                 </div>
 
-                
+                <!--
                     <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
                         </div>
                     @endif
-
+                -->
 
                     </div>
                 </div>
