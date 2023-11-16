@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Version;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\JwtTrait;
+use App\Models\Portfolio;
 use App\Providers\Interfaces\ISqlProviders;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -18,7 +19,10 @@ class PortfolioController extends Controller
     }
     
     public function folio(){
-        return view("info.protfolio");
+
+        $data = Portfolio::paginate(2);
+
+        return view("info.protfolio",compact("data"));
     }
 
     public function InsPoerfolio(Request $request){
