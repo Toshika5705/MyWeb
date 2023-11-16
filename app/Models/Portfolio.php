@@ -9,6 +9,8 @@ class Portfolio extends Model
 {
     use HasFactory;
 
+    protected $table = 'portfolio'; 
+
     protected $fillable = [
         "MemberId",
         "CreateTime",
