@@ -127,7 +127,9 @@ class PortfolioController extends Controller
                 $memberid = $user->MemberId;
             }
 
-            $this->sqlProviders->delPortfolio($memberid,$request->createtime);
+            $CreateTime = $request->createtime;
+
+            $this->sqlProviders->delPortfolio($memberid,$CreateTime);
 
             return response()->json(["code" => 200]);
         }catch(\Exception $e){

@@ -23,10 +23,17 @@
                         @foreach($data as $item)
                             <div class="col-md-6">
                                 <div class="card mb-12" style="width: 30rem;">
-                                    <div class="card-header">
+                                    <div class="card-header ">
+                                        <div class="dropdown">
                                         {{$item->Title}}
-                                        <input type="hidden" id="createtime" value="{{$item->CreateTime}}">
-                                        <button type="button" class="close" data-dismiss="modal" onclick="opendelFrom()">&times;</button>
+                                        <button class="close" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="bi bi-gear"></i>
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                            <li><a class="dropdown-item">編輯</a></li>
+                                            <li><a class="dropdown-item" onclick="opendelFrom()">刪除</a></li>
+                                        </ul>
+                                        </div>
                                     </div>
                                     <ul class="list-group list-group-flush">
                                         <li>
@@ -43,7 +50,7 @@
                     </div>
                 </div>
                 
-                 <!-- 彈出表格 -->
+                 <!-- 彈出新增表格 -->
                 <div class="modal" id="formModal">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -87,7 +94,7 @@
                 </div>
 
 
-                <!-- 彈出表格 -->
+                <!-- 彈出刪除表格 -->
                 <div class="modal" id="delfrom">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -102,6 +109,7 @@
                                 <form >
                                     <div class="form-group">
                                         <label>{{ __('messages.delfromQA') }}</label>
+                                        <input type="hidden" id="createtime" value="{{$item->CreateTime}}">
                                     </div>
                                 </form>
                                
