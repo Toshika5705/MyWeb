@@ -20,9 +20,16 @@ class PortfolioController extends Controller
     
     public function folio(){
 
-        $data = Portfolio::paginate(2);
+        $user = auth()->user();
 
-        return view("info.protfolio",compact("data"));
+        if ($user) {
+            $data = Portfolio::where('MemberId', $user->MemberId)->paginate(2);
+            return view("info.protfolio", compact("data"));
+        } else {
+            // 未登入的處理邏輯
+            return redirect()->route('login');
+        }
+
     }
 
     public function InsPoerfolio(Request $request){
