@@ -10,7 +10,6 @@
                     <div class="row">
                         <div class="col-md-6">
                             <h3>{{ __('messages.cards') }}<h3>
-                            <input type="hidden" id="memberid" value="{{ Auth::user()->MemberId }}">
                         </div>
                         <div class="col-md-6 text-right">
                             <button class="btn btn-primary" onclick="openForm()">{{ __('messages.add') }}</button>
@@ -26,6 +25,8 @@
                                 <div class="card mb-12" style="width: 30rem;">
                                     <div class="card-header">
                                         {{$item->Title}}
+                                        <input type="hidden" id="createtime" value="{{$item->CreateTime}}">
+                                        <button type="button" class="close" data-dismiss="modal" onclick="opendelFrom()">&times;</button>
                                     </div>
                                     <ul class="list-group list-group-flush">
                                         <li>
@@ -75,7 +76,7 @@
                                     <!-- Modal Footer -->
                                     <div class="modal-footer">
                                         <!-- 提交按鈕 -->
-                                        <button type="submit" class="btn btn-primary" onclick="submitForm()">提交</button>
+                                        <button type="submit" class="btn btn-primary" onclick="submitForm()">{{ __('messages.confirm') }}</button>
                                     </div>
                                 </form>
                                
@@ -84,6 +85,38 @@
                         </div>
                     </div>
                 </div>
+
+
+                <!-- 彈出表格 -->
+                <div class="modal" id="delfrom">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">{{ __('messages.delfrom') }}</h4>
+                                <!--button type="button" class="close" data-dismiss="modal">&times;</button -->
+                            </div>
+                            <!-- Modal Body -->
+                            <div class="modal-body">
+                                <!-- 在這裡放你的表格 -->
+                                <form >
+                                    <div class="form-group">
+                                        <label>{{ __('messages.delfromQA') }}</label>
+                                    </div>
+                                </form>
+                               
+                            </div>
+
+                            <!-- Modal Footer -->
+                            <div class="modal-footer d-flex justify-content-between">
+                                <!-- 提交按鈕 data-bs-dismiss 5版的-->
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('messages.cancel') }}</button>
+                                <button type="submit" class="btn btn-primary" onclick="delForm()">{{ __('messages.confirm') }}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
 
                 <!--
                     <div class="card-body">
