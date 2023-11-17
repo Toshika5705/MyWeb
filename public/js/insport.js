@@ -1,6 +1,9 @@
 function openForm() {
     $('#formModal').modal('show');
 }
+async function opendelFrom(){
+    $('#delfrom').modal('show');
+}
 
 async function submitForm() {
     
@@ -49,49 +52,30 @@ async function submitForm() {
 
 }
 
-async function getFormList(){
+async function delForm(){
 
     var memberid = $('#memberid').val();
-    var pagenumber = $('#pagenumber').val();
+    var createtime = $('#createtime').val();
 
-    await fetch('/api/folio/GetPoerfolio',{
-        method: 'GET',
+    await fetch('/api/folio/DeletePoerfolio',{
+        method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer YOUR_TOKEN_HERE',
         },
         body: JSON.stringify({
-            MemberId : memberid,
-            PageSize : 2,
-            PageNumber : 1,
+            memberid : memberid,
+            createtime : createtime
         }),
     })
     .then(response => response.json())
     .then(data => {
-        // 動態生成卡片
-        var cardContainer = document.getElementById('cardContainer');
-        cardContainer.innerHTML = '';
-
-        data.forEach(item => {
-            var card = document.createElement('div');
-            card.className = 'card';
-            card.innerHTML = `
-                <div class="card-body">
-                    <h5 class="card-title">${item.Title}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">${item.Subtitle}</h6>
-                    <p class="card-text">${item.MyUrl}</p>
-                </div>
-            `;
-            cardContainer.appendChild(card);
-        });
+        console.log(data);
+        //F5 刷新
+        location.reload();
     })
     .catch(error => {
         console.error('Error:', error);
     });
-}
-
-async function displayPortList(){
-    const getlist = await getFormList();
-    console.log(getlist);
 }
 
