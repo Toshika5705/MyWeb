@@ -8,4 +8,8 @@ return [
     'title'=> '標題',
     'subtitle'=> '副標題',
     'url'=> 'yt網址',
+    'delfrom'=> '刪除',
+    'delfromQA'=> '你是否移除此作品集',
+    'cancel'=> '取消',
+    'confirm'=> '確認',
 ]; 

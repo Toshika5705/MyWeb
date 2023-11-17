@@ -8,4 +8,8 @@ return [
     'title'=> 'title',
     'subtitle'=> 'subtitle',
     'url'=> 'url',
+    'delfrom'=> 'delete',
+    'delfromQA'=> 'Do you want to delete this folio',
+    'cancel'=> 'Cancel',
+    'confirm'=> 'Confirm',
 ]; 
