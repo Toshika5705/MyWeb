@@ -92,4 +92,46 @@ class PortfolioController extends Controller
             return response()->json(["error" => $e->getMessage()],401);
         }
     }
+
+
+    public function UpdatePortfolio(Request $request){
+        try{
+            if($request->has("MemberId")){
+                $memberid = $request->MemberId;
+            }else{
+                $user = JWTAuth::parseToken()->authenticate();
+                $memberid = $user->MemberId;
+            }
+
+            $this->sqlProviders->updatePortfolio(
+                $memberid,
+                $request->createTime,
+                $request->Title,
+                $request->Subtitle,
+                $request->MyUrl,
+                $request->UpdateTime,
+            );
+
+            return response()->json(["code" => 200]);
+        }catch(\Exception $e){
+            return response()->json(["error" => $e->getMessage()],401);
+        }
+    }
+
+    public function DeletePoerfolio(Request $request){
+        try{
+            if($request->has("MemberId")){
+                $memberid = $request->MemberId;
+            }else{
+                $user = JWTAuth::parseToken()->authenticate();
+                $memberid = $user->MemberId;
+            }
+
+            $this->sqlProviders->delPortfolio($memberid,$request->createTime);
+
+            return response()->json(["code" => 200]);
+        }catch(\Exception $e){
+            return response()->json(["error" => $e->getMessage()],401);
+        }
+    }
 }

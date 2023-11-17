@@ -42,4 +42,27 @@ class SqlProviders implements ISqlProviders {
                 $pageNumber
             ));
     }
+
+    public function updatePortfolio( $memberid,$createTime, $title, $subtitle, $myurl, $updatetime ) {
+        $sql = 'UPDATE [dbo].[Portfolio] SET Title = ?,Subtitle = ?, MyUrl = ?, UpdateTime = ?
+                WHERE MemberId = ? AND CreateTime = ?';
+        return DB::update($sql,
+            array(
+                $memberid,
+                $createTime,
+                $title,
+                $subtitle,
+                $myurl,
+                $updatetime
+            ));
+    }
+
+    public function delPortfolio( $memberid,$createTime ) {
+        $sql = 'DELETE FROM [dbo].[Portfolio] WHERE MemberId = ? AND CreateTime = ?';
+        return DB::delete($sql,
+            array(
+                $memberid,
+                $createTime
+            ));
+    }
 }
