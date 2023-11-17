@@ -120,14 +120,14 @@ class PortfolioController extends Controller
 
     public function DeletePoerfolio(Request $request){
         try{
-            if($request->has("MemberId")){
-                $memberid = $request->MemberId;
+            if($request->has("memberid")){
+                $memberid = $request->memberid;
             }else{
                 $user = JWTAuth::parseToken()->authenticate();
                 $memberid = $user->MemberId;
             }
 
-            $this->sqlProviders->delPortfolio($memberid,$request->createTime);
+            $this->sqlProviders->delPortfolio($memberid,$request->createtime);
 
             return response()->json(["code" => 200]);
         }catch(\Exception $e){
