@@ -12,4 +12,5 @@ return [
     'delfromQA'=> 'Do you want to delete this folio',
     'cancel'=> 'Cancel',
     'confirm'=> 'Confirm',
+    'update'=>'Update',
 ]; 

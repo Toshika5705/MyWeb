@@ -12,4 +12,5 @@ return [
     'delfromQA'=> '你是否移除此作品集',
     'cancel'=> '取消',
     'confirm'=> '確認',
+    'update'=>'更新',
 ]; 
