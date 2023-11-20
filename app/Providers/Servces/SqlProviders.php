@@ -48,12 +48,12 @@ class SqlProviders implements ISqlProviders {
                 WHERE MemberId = ? AND CreateTime = ?';
         return DB::update($sql,
             array(
-                $memberid,
-                $createTime,
                 $title,
                 $subtitle,
                 $myurl,
-                $updatetime
+                $updatetime,
+                $memberid,
+                $createTime
             ));
     }
 

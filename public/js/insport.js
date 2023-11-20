@@ -1,4 +1,12 @@
-function openForm() {
+function openForm(action) {
+    // 設定表單的動作
+    document.getElementById('formAction').value = action;
+
+    // 根據動作設定表單標題
+    var formTitle = (action === 'A') ? document.querySelector('[data-title="A"]').textContent : document.querySelector('[data-title="U"]').textContent;
+    document.getElementById('formTitle').innerHTML = formTitle;
+    
+
     $('#formModal').modal('show');
 }
 async function opendelFrom(){
@@ -6,7 +14,9 @@ async function opendelFrom(){
 }
 
 async function submitForm() {
-    
+
+    var action = document.getElementById('formAction').value;
+
     // 獲取表單數值
     var memberid = $('#memberid').val();
     var createTime = $('#clientTime').val();
@@ -14,39 +24,72 @@ async function submitForm() {
     var subtitle = $('#subtitle').val();
     var myUrl = $('#myUrl').val();
     var updateTime = $('#clientTime').val();
+    var old_createtime = $('#oldcreatetime').val();
 
-
+    
     if (!title || !subtitle || !myUrl) {
         // 顯示錯誤訊息或進行其他處理
         alert('以上不能為空');
         return false; // 阻止表單提交
     }
 
-    // 使用 Fetch API 發送 POST 請求
-    await fetch('/api/folio/InsPoerfolio', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer YOUR_TOKEN_HERE',
-        },
-        body: JSON.stringify({
-            MemberId : memberid,
-            CreateTime: createTime,
-            Title: title,
-            Subtitle: subtitle,
-            MyUrl: myUrl,
-            UpdateTime: updateTime,
-        }),
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Success:', data);
-        $('#formModal').modal('hide'); // 隱藏表單彈窗
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        // 處理錯誤，例如顯示錯誤消息
-    });
+
+    // 根據不同的動作執行不同的 API 功能
+    if (action === 'A') {
+
+        // 使用 Fetch API 發送 POST 請求
+        await fetch('/api/folio/InsPoerfolio', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer YOUR_TOKEN_HERE',
+            },
+            body: JSON.stringify({
+                MemberId : memberid,
+                CreateTime: createTime,
+                Title: title,
+                Subtitle: subtitle,
+                MyUrl: myUrl,
+                UpdateTime: updateTime,
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            $('#formModal').modal('hide'); // 隱藏表單彈窗
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // 處理錯誤，例如顯示錯誤消息
+        });
+
+    } else if (action === 'U') {
+
+        await fetch('/api/folio/UpdatePortfolio',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer YOUR_TOKEN_HERE',
+            },
+            body: JSON.stringify({
+                MemberId : memberid,
+                CreateTime: old_createtime,
+                Title: title,
+                Subtitle: subtitle,
+                MyUrl: myUrl,
+                UpdateTime: updateTime,
+            }),            
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            $('#formModal').modal('hide'); // 隱藏表單彈窗
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // 處理錯誤，例如顯示錯誤消息
+        });
+    }
     
     return true; // 允許表單提交
 

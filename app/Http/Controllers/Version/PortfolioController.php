@@ -103,13 +103,22 @@ class PortfolioController extends Controller
                 $memberid = $user->MemberId;
             }
 
+            // 使用正則表達式檢查是否包英文
+            if (preg_match('/[a-zA-Z]/', $request->UpdateTime)) {
+                // 包含中文
+                $updatetime = $this->getTime($request->UpdateTime);
+            } else {
+                // 不包含中文
+                $updatetime = $request->UpdateTime;
+            }            
+
             $this->sqlProviders->updatePortfolio(
                 $memberid,
-                $request->createTime,
+                $request->CreateTime,
                 $request->Title,
                 $request->Subtitle,
                 $request->MyUrl,
-                $request->UpdateTime,
+                $updatetime,
             );
 
             return response()->json(["code" => 200]);

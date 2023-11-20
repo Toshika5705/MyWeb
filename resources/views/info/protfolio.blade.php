@@ -12,7 +12,7 @@
                             <h3>{{ __('messages.cards') }}<h3>
                         </div>
                         <div class="col-md-6 text-right">
-                            <button class="btn btn-primary" onclick="openForm()">{{ __('messages.add') }}</button>
+                            <button class="btn btn-primary" data-title="A" onclick="openForm('A')">{{ __('messages.add') }}</button>
                         </div>
                     </div>
                 </div>
@@ -25,21 +25,21 @@
                                 <div class="card mb-12" style="width: 30rem;">
                                     <div class="card-header ">
                                         <div class="dropdown">
-                                        {{$item->Title}}
+                                        <a  data-title="{{$item->Title}}" >{{$item->Title}}</a>
                                         <button class="close" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                             <i class="bi bi-gear"></i>
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                            <li><a class="dropdown-item">編輯</a></li>
-                                            <li><a class="dropdown-item" onclick="opendelFrom()">刪除</a></li>
+                                            <li><a class="dropdown-item " data-title="U" onclick="openForm('U')">{{ __('messages.update') }}</a></li>
+                                            <li><a class="dropdown-item" onclick="opendelFrom()">{{ __('messages.delfrom') }}</a></li>
                                         </ul>
                                         </div>
                                     </div>
                                     <ul class="list-group list-group-flush">
-                                        <li>
+                                        <li >
                                             <iframe width="480" height="240" src="{{$item->MyUrl}}" frameborder="0" allowfullscreen></iframe>
                                         </li>
-                                        <li class="list-group-item">{{$item->Subtitle}}</li>
+                                        <li   class="list-group-item ">{{$item->Subtitle}}</li>
                                     </ul>
                                 </div>
                             </div>
@@ -56,7 +56,7 @@
                         <div class="modal-content">
                             <!-- Modal Header -->
                             <div class="modal-header">
-                                <h4 class="modal-title">{{ __('messages.addportfolio') }}</h4>
+                                <h4 class="modal-title" id="formTitle" ></h4>
                                 <!--button type="button" class="close" data-dismiss="modal">&times;</button -->
                             </div>
                             <!-- Modal Body -->
@@ -68,18 +68,20 @@
                                     
                                     <div class="form-group">
                                         <label>{{ __('messages.title') }}</label>
-                                        <input type="title" class="form-control" id="title" placeholder="{{ __('messages.title') }}" required>
+                                        <input type="title" class="form-control" id="title" placeholder="{{ __('messages.title') }}" value ="{{$item->Title}}"  required>
                                     </div>
                                     <!-- 更多表格欄位... -->
                                     <div class="form-group">
                                         <label >{{ __('messages.subtitle') }}</label>
-                                        <input type="Subtitle" class="form-control" id="subtitle" placeholder="{{ __('messages.subtitle') }}" required>
+                                        <input type="Subtitle" class="form-control" id="subtitle" placeholder="{{ __('messages.subtitle') }}" value ="{{$item->Subtitle}}"   required>
                                     </div>
                                     <div class="form-group">
                                         <label>{{ __('messages.url') }}</label>
-                                        <input type="MyUrl" class="form-control" id="myUrl" placeholder="https://www.youtube.com/embed/+ youtube的 v=" required>
+                                        <input type="MyUrl" class="form-control" id="myUrl" placeholder="https://www.youtube.com/embed/+ youtube的 v=" value ="{{$item->MyUrl}}" required>
                                     </div>
                                         <input type="hidden" name="time" id="clientTime" value="">
+                                        <input type="hidden" id="formAction" name="formAction">
+                                        <input type="hidden" id="oldcreatetime" value="{{ isset($item->CreateTime) ? $item->CreateTime : '' }}">
                                     <!-- Modal Footer -->
                                     <div class="modal-footer">
                                         <!-- 提交按鈕 -->
@@ -92,7 +94,7 @@
                         </div>
                     </div>
                 </div>
-
+                                            
 
                 <!-- 彈出刪除表格 -->
                 <div class="modal" id="delfrom">
@@ -109,7 +111,7 @@
                                 <form >
                                     <div class="form-group">
                                         <label>{{ __('messages.delfromQA') }}</label>
-                                        <input type="hidden" id="createtime" value="{{$item->CreateTime}}">
+                                        <input type="hidden" id="createtime" value="{{ isset($item->CreateTime) ? $item->CreateTime : '' }}">
                                     </div>
                                 </form>
                                
