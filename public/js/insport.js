@@ -2,10 +2,25 @@ function openForm(action) {
     // 設定表單的動作
     document.getElementById('formAction').value = action;
 
-    // 根據動作設定表單標題
+    // 根據動作設定表單標題 data-title 再塞入id裡
     var formTitle = (action === 'A') ? document.querySelector('[data-title="A"]').textContent : document.querySelector('[data-title="U"]').textContent;
     document.getElementById('formTitle').innerHTML = formTitle;
-    
+
+    //取card上 的 資料
+    var title = $(event.currentTarget).data('jstitle');
+    var subtitle = $(event.currentTarget).data('jssubtitle');
+    var myurl = $(event.currentTarget).data('jsmyurl');
+    var logtime = $(event.currentTarget).data('jslogtime');
+
+    //塞入清單裡的name名稱
+    var JsTitle = document.querySelector('input[name="JsTitle"]');
+    var JsSubtitle = document.querySelector('input[name="JsSubtitle"]');
+    var JsMyUrl = document.querySelector('input[name="JsMyUrl"]');
+    var Jsoldtime = document.querySelector('input[name="Jsoldtime"]');
+    JsTitle.value = title;
+    JsSubtitle.value = subtitle;
+    JsMyUrl.value = myurl;
+    Jsoldtime.value = logtime;
 
     $('#formModal').modal('show');
 }
@@ -113,7 +128,8 @@ async function delForm(){
     })
     .then(response => response.json())
     .then(data => {
-        console.log(data);
+        console.log('Success:', data);
+        $('#delfrom').modal('hide'); // 隱藏表單彈窗
         //F5 刷新
         location.reload();
     })
