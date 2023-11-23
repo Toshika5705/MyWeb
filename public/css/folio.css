@@ -1,3 +1,27 @@
 li {
     list-style-type: none;
 }
+
+li.list-group-item {
+    background: hsl(42, 87%, 69%);
+}
+
+html {
+    background: hsl(42, 5%, 39%);
+  }
+
+main {
+    background: hsl(42, 5%, 39%);
+  }
+
+div.card-header {
+    background: hsl(42, 87%, 69%);
+}
+
+div.container.mt-4{
+    background: hsl(43, 12%, 71%);
+}
+
+div.card {
+    background: hsl(43, 12%, 71%);
+}

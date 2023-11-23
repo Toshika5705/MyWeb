@@ -22,7 +22,7 @@
                     <div class="row">
                         @foreach($data as $item)
                             <div class="col-md-6">
-                                <div class="card mb-12" style="width: 30rem;">
+                                <div class="card mb-12" style="width: 33rem;">
                                     <div class="card-header ">
                                         <div class="dropdown">
                                         {{$item->Title}}
@@ -37,9 +37,9 @@
                                     </div>
                                     <ul class="list-group list-group-flush">
                                         <li >
-                                            <iframe width="480" height="240" src="{{$item->MyUrl}}" frameborder="0" allowfullscreen></iframe>
+                                            <iframe width="526" height="320" src="{{$item->MyUrl}}" frameborder="0" allowfullscreen></iframe>
                                         </li>
-                                        <li   class="list-group-item ">{{$item->Subtitle}}</li>
+                                        <li class="list-group-item ">{{$item->Subtitle}}</li>
                                     </ul>
                                 </div>
                             </div>
